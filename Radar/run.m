@@ -1,8 +1,8 @@
-load data/DBLP.mat;
-
+load data/Amazon.mat;
+start_time=cputime;
 [n,~] = size(X);
 X = normalizeFea(X, 0);
-niters = 10;
+niters = 20;
 
 alpha = 0.1;
 beta = 0.01;
@@ -17,6 +17,8 @@ score= sum(R.*R,2);
 gnd_data = zeros(n,2);
 gnd_data(:,1) = gnd;
 gnd_data(:,2) = score;
+end_time=cputime;
+op_time=end_time-start_time
 [tp,fp] = roc([gnd_data(:,1),gnd_data(:,2)]);
 plot(fp,tp);
 auc_value = auc(gnd_data);

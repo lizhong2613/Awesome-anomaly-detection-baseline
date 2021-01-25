@@ -1,2 +1,7 @@
 # Awesome-Anomaly-Detection-Baseline
- Anoamly detection baselines
+
+[toc]
+
+## Background
+
+The repo reproduced baselines of the anomaly detection algorithm on the attribute graph.
