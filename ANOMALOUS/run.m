@@ -1,7 +1,6 @@
 load dataset/Amazon.mat;
 
 [n,~] = size(X);
-X = X(:,1:20);
 X = normalizeFea(X, 0);
 Xt = X';
 
