@@ -1,6 +1,6 @@
 # Awesome-Anomaly-Detection-Baseline
 
-[toc]
+[TOC]
 
 ## Background
 
@@ -18,4 +18,4 @@ The repo reproduced baselines of the anomaly detection algorithm on the attribut
 
 **Radar:**[Radar: Residual Analysis for Anomaly Detection in Attributed Networks](https://www.ijcai.org/Proceedings/2017/299)
 
-**ANOMALOUS:**[]
+**ANOMALOUS:**[ANOMALOUS: A Joint Modeling Approach for Anomaly Detection on Attributed Networks](https://www.ijcai.org/Proceedings/2018/488)
