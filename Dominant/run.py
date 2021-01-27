@@ -20,8 +20,21 @@ def main(iterations = 300):
     attributes = datagetter.returnAttributes()
 
     # model
-    dominant = Dominant.DominantModel(Anorm, attributes)
-    gd = torch.optim.Adam(dominant.parameters())
+
+
+    # cuda
+    if torch.cuda.is_available():
+        A = A.cuda()
+        X = X.cuda()
+        gnd = gnd.cuda()
+        Anorm = Anorm.cuda()
+        dominant = Dominant.DominantModel(Anorm, attributes)
+        dominant = dominant.cuda()
+    else:
+        dominant = Dominant.DominantModel(Anorm, attributes)
+        
+    gd = torch.optim.Adam(dominant.parameters()) 
+    print(dominant)
 
     for iter in range(iterations):
         reconstructionStructure, reconstructionAttribute = dominant(X)
