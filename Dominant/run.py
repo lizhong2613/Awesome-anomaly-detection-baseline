@@ -6,7 +6,7 @@ import normA
 import DominantModel as Dominant
 from getData import GetData
 
-def main(iterations = 300):
+def main(alpha = 0.5, iterations = 300):
 
     # get data
     datagetter = GetData("data/Amazon.mat")
@@ -32,12 +32,30 @@ def main(iterations = 300):
         dominant = dominant.cuda()
     else:
         dominant = Dominant.DominantModel(Anorm, attributes)
-        
-    gd = torch.optim.Adam(dominant.parameters()) 
-    print(dominant)
+
+    gd = torch.optim.Adam(dominant.parameters(), lr=0.005) 
+    # print(dominant)
 
     for iter in range(iterations):
         reconstructionStructure, reconstructionAttribute = dominant(X)
+        loss = alpha * torch.norm(reconstructionStructure - A)**2 + (1 - alpha) * torch.norm(reconstructionAttribute - X)**2
+
+        gd.zero_grad()
+        loss.backward()
+        gd.step()
+        # print(loss/samples)
+
+    if torch.cuda.is_available():
+        structureError = (reconstructionStructure - A).cpu().detach().numpy()
+        attributeError = (reconstructionAttribute - X).cpu().detach().numpy()
+    else:
+        structureError = (reconstructionStructure - A).detach().numpy()
+        attributeError = (reconstructionAttribute - X).detach().numpy()
+    structureLoss = np.linalg.norm(structureError, axis=1, keepdims=True)
+    attributeLoss = np.linalg.norm(attributeError, axis=1, keepdims=True)
+    finalLoss = alpha * structureLoss + (1 - alpha) * attributeLoss
+    print(finalLoss)
+    
 
 if __name__=="__main__":
     main()
