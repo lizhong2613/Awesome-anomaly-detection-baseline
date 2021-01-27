@@ -1,10 +1,12 @@
 import numpy as np
 import scipy.io as sio
 
+
 class getData(object):
     '''
     return data of A, X and gnd
     '''
+
     def __init__(self, path):
         self.path = path
         self.shapeA = None
