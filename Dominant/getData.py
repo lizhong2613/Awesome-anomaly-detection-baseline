@@ -19,6 +19,7 @@ class getData(object):
     def readFile(self):
         data = sio.loadmat(self.path)
         self.A = data['A']
+        self.A = np.max(self.A, self.A.T)
         self.X = data['X']
         self.gnd = data['gnd']
         checkshape = self.checkShape()
