@@ -2,7 +2,7 @@ import numpy as np
 import scipy.io as sio
 
 
-class getData(object):
+class GetData(object):
     '''
     return data of A, X and gnd
     '''
@@ -21,13 +21,17 @@ class getData(object):
     def readFile(self):
         data = sio.loadmat(self.path)
         self.A = data['A']
-        self.A = np.max(self.A, self.A.T)
+        if type(self.A) is not np.ndarray:
+            self.A = self.A.toarray()
+        self.A = np.maximum(self.A, self.A.T)
         self.X = data['X']
         self.gnd = data['gnd']
         checkshape = self.checkShape()
         if checkshape != "match!":
             print(checkshape)
             return
+        self.samples = self.shapeX[0]
+        self.attributes = self.shapeX[1]
         return self.A, self.X, self.gnd
 
     def checkShape(self):
@@ -43,7 +47,13 @@ class getData(object):
         else:
             return "match!"
 
-# a = getData("data/Amazon.mat")
+    def returnSamples(self):
+        return self.samples
+
+    def returnAttributes(self):
+        return self.attributes
+
+# a = GetData("data/Enron.mat")
 # a.readFile()
 # print(a)
 # A, X, gnd = a.readFile()
