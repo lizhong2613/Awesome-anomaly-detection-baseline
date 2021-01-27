@@ -1,6 +1,5 @@
 import torch
 import numpy as np
-import scipy.io as sio
 import torch.nn as nn
 import torch.nn.functional as F
 
