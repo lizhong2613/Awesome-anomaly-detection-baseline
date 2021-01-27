@@ -12,7 +12,7 @@ function [R] = radar(X, A, L, alpha, beta, gamma, niters)
         
         %% update R
         R = inv(eye(n)+beta*Dr+gamma*L)*(X-W'*X);
-        Rtmp = sqrt(sum(R.*R,2)+eps);
+        Rtmp = sqrt(sum(R.*R,2))+eps;
         Dr = diag(0.5./Rtmp);
         
         %% check if the objective function converges
