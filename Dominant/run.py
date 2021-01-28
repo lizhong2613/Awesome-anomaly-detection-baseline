@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
+from sklearn.metrics import roc_auc_score
 import normA
 import DominantModel as Dominant
 from getData import GetData
@@ -36,15 +37,16 @@ def main(alpha = 0.5, iterations = 300):
     gd = torch.optim.Adam(dominant.parameters(), lr=0.005) 
     # print(dominant)
 
+    # training
     for iter in range(iterations):
         reconstructionStructure, reconstructionAttribute = dominant(X)
-        loss = alpha * torch.norm(reconstructionStructure - A)**2 + (1 - alpha) * torch.norm(reconstructionAttribute - X)**2
+        loss = alpha * torch.norm(reconstructionStructure - A) + (1 - alpha) * torch.norm(reconstructionAttribute - X)
 
         gd.zero_grad()
         loss.backward()
         gd.step()
-        # print(loss/samples)
 
+    # get score
     if torch.cuda.is_available():
         structureError = (reconstructionStructure - A).cpu().detach().numpy()
         attributeError = (reconstructionAttribute - X).cpu().detach().numpy()
@@ -53,9 +55,11 @@ def main(alpha = 0.5, iterations = 300):
         attributeError = (reconstructionAttribute - X).detach().numpy()
     structureLoss = np.linalg.norm(structureError, axis=1, keepdims=True)
     attributeLoss = np.linalg.norm(attributeError, axis=1, keepdims=True)
-    finalLoss = alpha * structureLoss + (1 - alpha) * attributeLoss
-    print(finalLoss)
-    
+    score = alpha * structureLoss + (1 - alpha) * attributeLoss
+    target = gnd.reshape((-1))
+    target = target.tolist()
+    score = score.tolist()
+    print(roc_auc_score(target, score))
 
 if __name__=="__main__":
     main()

@@ -16,4 +16,4 @@ class DominantModel(nn.Module):
         X = self.gcn1(X)
         X = self.gcn2(X)
         Z = self.gcn3(X)
-        return Z.mm(Z.transpose(0, 1)), self.deconv(Z)
+        return torch.sigmoid(Z.mm(Z.transpose(0, 1))), self.deconv(Z)
