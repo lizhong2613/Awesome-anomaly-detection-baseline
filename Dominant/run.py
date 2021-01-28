@@ -21,9 +21,6 @@ def main(alpha = 0.5, iterations = 300):
     attributes = datagetter.returnAttributes()
 
     # model
-
-
-    # cuda
     if torch.cuda.is_available():
         A = A.cuda()
         X = X.cuda()
