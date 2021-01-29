@@ -1,12 +1,9 @@
-""" pregel.py is a python 3.4 module implementing a toy single-machine
-    version of Google's Pregel system for large-scale graph processing.
-"""
-
 import collections
 import threading
 
+
 class Vertex():
-    def __init__(self,id,value,neighbors):
+    def __init__(self, id, value, neighbors):
         # This is mostly self-explanatory, but has a few quirks:
         #
         # self.id unique ids for vertex
@@ -22,9 +19,10 @@ class Vertex():
         self.active = True
         self.superstep = 0
 
+
 class Pregel():
 
-    def __init__(self,vertices,num_workers):
+    def __init__(self, vertices, num_workers):
         self.vertices = vertices
         self.num_workers = num_workers
 
@@ -45,19 +43,11 @@ class Pregel():
             partition[self.worker(vertex)].append(vertex)
         return partition
 
-    def worker(self,vertex):
+    def worker(self, vertex):
         """Returns the id of the worker that vertex is assigned to."""
         return hash(vertex) % self.num_workers
 
     def superstep(self):
-        """Completes a single superstep.
-
-        Note that in this implementation, worker threads are spawned,
-        and then destroyed during each superstep. This creation and
-        destruction causes some overhead, and it world be better to
-        make the workers persistent, and to use a locking mechanism to
-        synchronize. The Pregel paper suggests that this is how Google's
-        Pregel implementation works."""
         workers = []
         for vertex_list in self.partition.values():
             worker = Worker(vertex_list)
@@ -70,12 +60,11 @@ class Pregel():
     def redistribute_messages(self):
         """Updates the message lists for all vertices."""
         for vertex in self.vertices:
-            vertex.superstep +=1
+            vertex.superstep += 1
             vertex.incoming_messages = []
         for vertex in self.vertices:
-            for(receiving_vertix,message) in vertex.outgoing_messages:
-                receiving_vertix.incoming_messages.append((vertex,message))
-
+            for(receiving_vertix, message) in vertex.outgoing_messages:
+                receiving_vertix.incoming_messages.append((vertex, message))
 
     def check_active(self):
         """ Returns True if there are any active vertices, and False
@@ -83,9 +72,10 @@ class Pregel():
         """
         return any([vertex.active for vertex in self.vertices])
 
+
 class Worker(threading.Thread):
 
-    def __init__(self,vertices):
+    def __init__(self, vertices):
         threading.Thread.__init__(self)
         self.vertices = vertices
 
@@ -96,4 +86,3 @@ class Worker(threading.Thread):
         """Completes a single superstep for all the vertices in self."""
         for vertex in self.vertices:
             vertex.update()
-        
