@@ -26,10 +26,9 @@ The repo reproduced baselines of the anomaly detection algorithm on the attribut
 ## Algorithms
 
 + **Radar:**[Radar: Residual Analysis for Anomaly Detection in Attributed Networks](https://www.ijcai.org/Proceedings/2017/299)
-
 + **ANOMALOUS:**[ANOMALOUS: A Joint Modeling Approach for Anomaly Detection on Attributed Networks](https://www.ijcai.org/Proceedings/2018/488)
-
 + **Dominant:**[Deep Anomaly Detection on Attributed Networks](http://www.public.asu.edu/~kding9/pdf/SDM2019_Deep.pdf)
++ **SCAN:**[A Structural Clustering Algorithm for Networks](https://dl.acm.org/doi/abs/10.1145/1281192.1281280)
 
 ## Usage
 
@@ -42,4 +41,6 @@ python -u "run.py"
 
 ## Welcome To Contribute
 
-If you have any models implemented with great performance, you're welcome to contribute. Also, I'm glad to help if you have any problems with the project, feel free to raise a issue.
+If you have any models implemented with great performance, you're welcome to contribute. Also, I'm glad to help if you have any problems with the project, feel free to raise an issue.
+
+**Contact me:** xdu DOT lhchen AT gmail DOT com.
