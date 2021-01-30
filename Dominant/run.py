@@ -8,6 +8,7 @@ import calculateAUC
 import DominantModel as Dominant
 from getData import GetData
 from recallAtK import calculateRecallAtK
+from precisionAtK import calculatePrecisionAtK
 
 def main(K, alpha = 0.5, iterations = 300):
 
@@ -56,8 +57,9 @@ def main(K, alpha = 0.5, iterations = 300):
     attributeLoss = np.linalg.norm(attributeError, axis=1, keepdims=True)
     score = alpha * structureLoss + (1 - alpha) * attributeLoss
     RecallatK = calculateRecallAtK(score, gnd, K)
+    PrecisionatK = calculatePrecisionAtK(score, gnd, K)
     print("Recall @ {}: \t{}".format(K, RecallatK))
-
+    print("Recall @ {}: \t{}".format(K, PrecisionatK))
     print("AUC value: \t{}".format(calculateAUC.getAUC(score=score, gnd=gnd)))
 
 if __name__=="__main__":
