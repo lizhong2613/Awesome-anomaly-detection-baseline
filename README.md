@@ -26,10 +26,12 @@ The repo reproduced baselines of the anomaly detection algorithm on the attribut
 
 ## Algorithms
 
++ **LOF:**[LOF: Identifying Density-Based Local Outliers](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1078.3580&rep=rep1&type=pdf)
++ **SCAN:**[A Structural Clustering Algorithm for Networks](https://dl.acm.org/doi/abs/10.1145/1281192.1281280)
+
 + **Radar:**[Radar: Residual Analysis for Anomaly Detection in Attributed Networks](https://www.ijcai.org/Proceedings/2017/299)
 + **ANOMALOUS:**[ANOMALOUS: A Joint Modeling Approach for Anomaly Detection on Attributed Networks](https://www.ijcai.org/Proceedings/2018/488)
 + **Dominant:**[Deep Anomaly Detection on Attributed Networks](http://www.public.asu.edu/~kding9/pdf/SDM2019_Deep.pdf)
-+ **SCAN:**[A Structural Clustering Algorithm for Networks](https://dl.acm.org/doi/abs/10.1145/1281192.1281280)
 
 ## Usage
 
