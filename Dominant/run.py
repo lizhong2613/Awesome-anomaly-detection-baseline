@@ -4,10 +4,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from sklearn.metrics import roc_auc_score
 import normA
+import calculateAUC
 import DominantModel as Dominant
 from getData import GetData
+from recallAtK import calculateRecallAtK
 
-def main(alpha = 0.5, iterations = 300):
+def main(K, alpha = 0.5, iterations = 300):
 
     # get data
     datagetter = GetData("data/Amazon.mat")
@@ -53,10 +55,10 @@ def main(alpha = 0.5, iterations = 300):
     structureLoss = np.linalg.norm(structureError, axis=1, keepdims=True)
     attributeLoss = np.linalg.norm(attributeError, axis=1, keepdims=True)
     score = alpha * structureLoss + (1 - alpha) * attributeLoss
-    target = gnd.reshape((-1))
-    target = target.tolist()
-    score = score.tolist()
-    print(roc_auc_score(target, score))
+    RecallatK = calculateRecallAtK(score, gnd, K)
+    print("Recall @ {}: \t{}".format(K, RecallatK))
+
+    print("AUC value: \t{}".format(calculateAUC.getAUC(score=score, gnd=gnd)))
 
 if __name__=="__main__":
-    main()
+    main(300)
