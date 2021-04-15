@@ -12,7 +12,7 @@ The repo reproduced baselines of the anomaly detection algorithm on the attribut
 - torch==1.4.0
 - scikit-learn==0.22.2.post1
 - numpy==1.18.5
-- networkx==2.4
+- networkx==1.11
 
 ## Return Values
 
